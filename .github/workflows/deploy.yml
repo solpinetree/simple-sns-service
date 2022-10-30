@@ -24,11 +24,11 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Deploy to Heroku
-          uses: AkhileshNS/heroku-deploy@v3.12.12
-          with:
+        uses: AkhileshNS/heroku-deploy@v3.12.12
+        with:
                   # This will be used for authentication. You can find it in your heroku homepage account settings
-            heroku_api_key: ${{ secrets.HEROKU_DEPLOY_KEY }}
+          heroku_api_key: ${{ secrets.HEROKU_DEPLOY_KEY }}
                   # Email that you use with heroku
-            heroku_email: sadlthf@gmail.com
+          heroku_email: sadlthf@gmail.com
                   # The appname to use for deploying/updating
-            heroku_app_name: fc-sns-sol
+          heroku_app_name: fc-sns-sol
