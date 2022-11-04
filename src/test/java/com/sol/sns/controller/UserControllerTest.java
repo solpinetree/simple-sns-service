@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sol.sns.controller.request.UserJoinRequest;
 import com.sol.sns.controller.request.UserLoginRequest;
+import com.sol.sns.exception.ErrorCode;
 import com.sol.sns.exception.SnsApplicationException;
 import com.sol.sns.model.User;
 import com.sol.sns.service.UserService;
@@ -54,7 +55,7 @@ public class UserControllerTest {
         String userName = "userName";
         String password = "password";
 
-        when(userService.join(userName, password)).thenThrow(new SnsApplicationException());
+        when(userService.join(userName, password)).thenThrow(new SnsApplicationException(ErrorCode.DUPLICATED_USER_NAME, ""));
 
         mockMvc.perform(post("/api/v1/users/join")
                         .contentType(MediaType.APPLICATION_JSON)
