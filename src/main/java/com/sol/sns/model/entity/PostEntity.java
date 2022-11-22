@@ -1,6 +1,5 @@
 package com.sol.sns.model.entity;
 
-import com.sol.sns.model.UserRole;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
@@ -24,12 +23,12 @@ public class PostEntity {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "body" columnDefinition = "TEXT")
+    @Column(name = "body", columnDefinition = "TEXT")
     private String body;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
+    private UserEntity user;
 
     @Column(name = "registered_at")
     private Timestamp registeredAt;
@@ -51,4 +50,11 @@ public class PostEntity {
         this.updatedAt = Timestamp.from(Instant.now());
     }
 
+    public static PostEntity of(String title, String body, UserEntity userEntity) {
+        PostEntity entity = new PostEntity();
+        entity.setTitle(title);
+        entity.setBody(body);
+        entity.setUser(userEntity);
+        return entity;
+    }
 }
