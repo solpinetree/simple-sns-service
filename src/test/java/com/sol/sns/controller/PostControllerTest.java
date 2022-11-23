@@ -190,7 +190,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithAnonymousUser
     void 피드목록요청시_로그인하지_않은경우() throws Exception {
         // TODO : mocking
         when(postService.list(any())).thenReturn(Page.empty());
@@ -214,7 +214,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @WithMockUser
+    @WithAnonymousUser
     void 내피드목록요청시_로그인하지_않은경우() throws Exception {
         when(postService.my(any(), any())).thenReturn(Page.empty());
 
