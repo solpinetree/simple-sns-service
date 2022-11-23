@@ -135,19 +135,17 @@ public class PostControllerTest {
 
     @Test
     @WithMockUser
-    void 피드목록() throws Exception {
-        // TODO : mocking
-        mockMvc.perform(get("/api/v1/posts")
-                    .contentType(MediaType.APPLICATION_JSON)
-             ).andDo(print())
-            .andExpect(status().isOk());
+    void 포스트삭제() throws Exception {
+        mockMvc.perform(delete("/api/v1/posts/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                ).andDo(print())
+                .andExpect(status().isOk());
     }
 
     @Test
-    @WithMockUser
-    void 피드목록요청시_로그인하지_않은경우() throws Exception {
-
-        mockMvc.perform(get("/api/v1/posts")
+    @WithAnonymousUser
+    void 포스트삭제시_로그인하지_않은경우() throws Exception {
+        mockMvc.perform(delete("/api/v1/posts/1")
                         .contentType(MediaType.APPLICATION_JSON)
                 ).andDo(print())
                 .andExpect(status().isUnauthorized());
@@ -155,9 +153,11 @@ public class PostControllerTest {
 
     @Test
     @WithMockUser
-    void 내피드목록() throws Exception {
-        // TODO : mocking
-        mockMvc.perform(get("/api/v1/posts/my")
+    void 포스트삭제시_작성자와_삭제요청자가_다를경우() throws Exception {
+        // mocking
+        doThrow(new SnsApplicationException(ErrorCode.INVALID_PERMISSION)).when(postService).delete(any(), any());
+
+        mockMvc.perform(delete("/api/v1/posts/1")
                         .contentType(MediaType.APPLICATION_JSON)
                 ).andDo(print())
                 .andExpect(status().isOk());
@@ -165,11 +165,54 @@ public class PostControllerTest {
 
     @Test
     @WithMockUser
-    void 내피드목록요청시_로그인하지_않은경우() throws Exception {
+    void 포스트삭제시_삭제하려는_포스트가_존재하지_않을_경우() throws Exception {
+        // mocking
+        doThrow(new SnsApplicationException(ErrorCode.POST_NOT_FOUND)).when(postService).delete(any(), any());
 
-        mockMvc.perform(get("/api/v1/posts/my")
+        mockMvc.perform(delete("/api/v1/posts/1")
                         .contentType(MediaType.APPLICATION_JSON)
                 ).andDo(print())
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isOk());
     }
+
+
+//    @Test
+//    @WithMockUser
+//    void 피드목록() throws Exception {
+//        // TODO : mocking
+//        mockMvc.perform(get("/api/v1/posts")
+//                    .contentType(MediaType.APPLICATION_JSON)
+//             ).andDo(print())
+//            .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    @WithMockUser
+//    void 피드목록요청시_로그인하지_않은경우() throws Exception {
+//
+//        mockMvc.perform(get("/api/v1/posts")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                ).andDo(print())
+//                .andExpect(status().isUnauthorized());
+//    }
+//
+//    @Test
+//    @WithMockUser
+//    void 내피드목록() throws Exception {
+//        // TODO : mocking
+//        mockMvc.perform(get("/api/v1/posts/my")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                ).andDo(print())
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    @WithMockUser
+//    void 내피드목록요청시_로그인하지_않은경우() throws Exception {
+//
+//        mockMvc.perform(get("/api/v1/posts/my")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                ).andDo(print())
+//                .andExpect(status().isUnauthorized());
+//    }
 }
