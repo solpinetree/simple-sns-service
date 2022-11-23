@@ -5,9 +5,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class UserLoginRequest {
+public class PostModifyRequest {
 
-    private String name;
-    private String password;
-
+    private String title;
+    private String body;
 }

@@ -62,8 +62,8 @@ task cleanFrontEnd(type: Delete) {
 }
 
 // 위에서 작성한 TASK들을 chain으로 연결
-//npmBuild.dependsOn npmInstall
-//copyFrontEnd.dependsOn npmBuild
-//compileJava.dependsOn copyFrontEnd
-//
-//clean.dependsOn cleanFrontEnd
+npmBuild.dependsOn npmInstall
+copyFrontEnd.dependsOn npmBuild
+compileJava.dependsOn copyFrontEnd
+
+clean.dependsOn cleanFrontEnd
