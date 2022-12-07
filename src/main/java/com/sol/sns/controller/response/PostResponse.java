@@ -1,7 +1,6 @@
 package com.sol.sns.controller.response;
 
 import com.sol.sns.model.Post;
-import com.sol.sns.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
