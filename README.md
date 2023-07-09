@@ -24,7 +24,7 @@
       </ul>
     </li>
     <li>
-      <li><a href="#architecture">Architecture</a></li>
+      <a href="#architecture">Architecture</a>
     </li>
     <li>
       <a href="#class-diagram">Class Diagram</a>
@@ -83,6 +83,9 @@
 ## Architecture
 <img width="719" alt="image" src="https://github.com/solpinetree/simple-sns-service/assets/83967710/61a0c70f-f87f-48fa-9738-9ee7249669b4">
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Class Diagram
 ![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/7c8aaf16-3544-4b4c-b800-e97732ce0c93)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
