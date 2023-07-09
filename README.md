@@ -23,6 +23,9 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
+    <li>
+      <a href="#class-diagram">Class Diagram</a>
+    </li>
   </ol>
 </details>
 
@@ -73,3 +76,6 @@
 [Git-url]: https://git-scm.com/
 [Github]: https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white
 [Github-url]: https://docs.github.com/en
+
+## Class Diagram
+![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/7c8aaf16-3544-4b4c-b800-e97732ce0c93)
