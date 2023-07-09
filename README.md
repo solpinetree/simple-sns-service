@@ -24,6 +24,9 @@
       </ul>
     </li>
     <li>
+      <li><a href="#architecture">Architecture</a></li>
+    </li>
+    <li>
       <a href="#class-diagram">Class Diagram</a>
     </li>
   </ol>
@@ -76,6 +79,10 @@
 [Git-url]: https://git-scm.com/
 [Github]: https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white
 [Github-url]: https://docs.github.com/en
+
+## Architecture
+<img width="719" alt="image" src="https://github.com/solpinetree/simple-sns-service/assets/83967710/61a0c70f-f87f-48fa-9738-9ee7249669b4">
+
 
 ## Class Diagram
 ![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/7c8aaf16-3544-4b4c-b800-e97732ce0c93)
