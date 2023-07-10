@@ -83,10 +83,16 @@
 [Github]: https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white
 [Github-url]: https://docs.github.com/en
 
+&nbsp;
+&nbsp;
+
 ## Architecture
 <img width="719" alt="image" src="https://github.com/solpinetree/simple-sns-service/assets/83967710/61a0c70f-f87f-48fa-9738-9ee7249669b4">
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+&nbsp;
+&nbsp;
 
 ## BackEnd Layers
 ![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/c158e364-8a0b-4bda-b79c-218f4378224e)
@@ -94,7 +100,19 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+&nbsp;
+&nbsp;
+
+## Security Diagram
+![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/8dbbb6ca-fc90-471a-8278-bae3c8eaaf5a)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+&nbsp;
+&nbsp;
+
 ## Class Diagram
 ![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/7c8aaf16-3544-4b4c-b800-e97732ce0c93)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
