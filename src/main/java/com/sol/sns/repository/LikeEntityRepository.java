@@ -22,7 +22,7 @@ public class LikeEntityRepository {
 
         try {
             entity = jdbcTemplate.queryForObject(
-                    "select * from \"like\" where user_id =  ? and post_id = ? and deleted_at = null",
+                    "select * from \"like\" where user_id =  ? and post_id = ? and deleted_at is null",
                     LikeEntity.class,
                     user.getId(), post.getId());
         } catch (EmptyResultDataAccessException e) {
@@ -33,7 +33,7 @@ public class LikeEntityRepository {
     }
 
     public int countByPost(@Param("post") PostEntity post) {
-        int cnt = jdbcTemplate.queryForObject("select count(*) from \"post\" where id = ? and deleted_at = null",
+        int cnt = jdbcTemplate.queryForObject("select count(*) from \"post\" where id = ? and deleted_at is null",
                 Integer.class,
                 post.getId());
         return cnt;
@@ -42,7 +42,7 @@ public class LikeEntityRepository {
     public Optional<LikeEntity> save(LikeEntity entity) {
         try {
             int likeId = jdbcTemplate.update(
-                    "insert into \"like\" (user_id, post_id) values (?, ?)",
+                    "insert into \"like\" (user_id, post_id, registered_at, updated_at) values (?, ?, now(), now())",
                     entity.getUser().getId(), entity.getPost().getId());
             entity.setId(likeId);
         } catch (EmptyResultDataAccessException e) {

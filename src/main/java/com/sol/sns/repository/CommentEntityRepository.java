@@ -40,7 +40,7 @@ public class CommentEntityRepository {
 
     public CommentEntity save(CommentEntity entity) {
         int commentId = jdbcTemplate.update(
-                "insert into \"comment\" (user_id, post_id, comment) values (?, ?, ?)",
+                "insert into \"comment\" (user_id, post_id, comment, registered_at, updated_at) values (?, ?, ?, now(), now())",
                 entity.getUser().getId(), entity.getPost().getId(), entity.getComment());
 
         entity.setId(commentId);

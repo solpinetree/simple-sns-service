@@ -25,7 +25,7 @@ public class PostEntityRepository {
 
         try {
             entity = jdbcTemplate.queryForObject(
-                    "select * from \"post\" where id = ?",
+                    "select * from \"post\" where id = ? and deleted_at is null",
                     PostEntity.class,
                     postId);
         } catch (EmptyResultDataAccessException e) {
@@ -75,7 +75,7 @@ public class PostEntityRepository {
 
     public PostEntity save(PostEntity entity) {
         int postId = jdbcTemplate.update(
-                "insert into \"post\" (title, body, user_id) values (?, ?, ?)",
+                "insert into \"post\" (title, body, user_id, registered_at, updated_at) values (?, ?, ?, now(), now())",
                 entity.getTitle(), entity.getBody(), entity.getUser().getId());
 
         entity.setId(postId);
@@ -84,7 +84,7 @@ public class PostEntityRepository {
 
     public PostEntity update(PostEntity entity) {
         jdbcTemplate.update(
-                "update \"post\" set title = ?, body = ? where id = ?",
+                "update \"post\" set title = ?, body = ?, updated_at = now() where id = ?",
                 entity.getTitle(), entity.getBody(), entity.getId());
 
         return entity;

@@ -27,7 +27,7 @@ public class AlarmEntityRepository {
 
         try {
             alarmEntities = jdbcTemplate.query(
-                    "select * from \"alarm\" where user_id = ? limit ? offset ?",
+                    "select * from \"alarm\" where user_id = ? and deleted_at is null limit ? offset ?",
                     new BeanPropertyRowMapper<>(AlarmEntity.class),
                     userId, pageSize, offset);
         } catch (EmptyResultDataAccessException e) {
@@ -39,7 +39,7 @@ public class AlarmEntityRepository {
 
     public AlarmEntity save(AlarmEntity entity) {
         int alarmId = jdbcTemplate.update(
-                "insert into \"alarm\" (user_id, alarmType, args) values (?, ?, ?)",
+                "insert into \"alarm\" (user_id, alarmType, args, registered_at, updated_at) values (?, ?, ?, now(), now())",
                 entity.getUser().getId(), entity.getAlarmType(), entity.getArgs());
 
         entity.setId(alarmId);

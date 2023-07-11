@@ -26,14 +26,6 @@ public class AlarmEntity {
 
     private Timestamp deletedAt;
 
-    void registeredAt() {
-        this.registeredAt = Timestamp.from(Instant.now());
-    }
-
-    void updatedAt() {
-        this.updatedAt = Timestamp.from(Instant.now());
-    }
-
     public static AlarmEntity of(UserEntity userEntity, AlarmType alarmType, AlarmArgs args) {
         AlarmEntity entity = new AlarmEntity();
         entity.setUser(userEntity);

@@ -24,14 +24,6 @@ public class UserEntity {
 
     private Timestamp deletedAt;
 
-    void registeredAt() {
-        this.registeredAt = Timestamp.from(Instant.now());
-    }
-
-    void updatedAt() {
-        this.updatedAt = Timestamp.from(Instant.now());
-    }
-
     public static UserEntity of(String userName, String password) {
         UserEntity userEntity = new UserEntity();
         userEntity.setUserName(userName);

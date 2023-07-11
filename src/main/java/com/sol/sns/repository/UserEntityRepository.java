@@ -46,7 +46,7 @@ public class UserEntityRepository {
 
     public UserEntity save(UserEntity entity) {
         int userId = jdbcTemplate.update(
-                "insert into \"user\" (user_name, password) values (?, ?)",
+                "insert into \"user\" (user_name, password, registered_at, updated_at) values (?, ?, now(), now())",
                 entity.getUserName(), entity.getPassword());
 
         entity.setId(userId);

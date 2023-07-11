@@ -23,14 +23,6 @@ public class PostEntity {
 
     private Timestamp deletedAt;
 
-    void registeredAt() {
-        this.registeredAt = Timestamp.from(Instant.now());
-    }
-
-    void updatedAt() {
-        this.updatedAt = Timestamp.from(Instant.now());
-    }
-
     public static PostEntity of(String title, String body, UserEntity userEntity) {
         PostEntity entity = new PostEntity();
         entity.setTitle(title);

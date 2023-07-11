@@ -23,14 +23,6 @@ public class CommentEntity {
 
     private Timestamp deletedAt;
 
-    void registeredAt() {
-        this.registeredAt = Timestamp.from(Instant.now());
-    }
-
-    void updatedAt() {
-        this.updatedAt = Timestamp.from(Instant.now());
-    }
-
     public static CommentEntity of(UserEntity userEntity, PostEntity postEntity, String comment) {
         CommentEntity entity = new CommentEntity();
         entity.setUser(userEntity);
