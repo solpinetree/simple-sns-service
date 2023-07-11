@@ -4,30 +4,43 @@ import com.sol.sns.exception.ErrorCode;
 import com.sol.sns.exception.SnsApplicationException;
 import com.sol.sns.fixture.UserEntityFixture;
 import com.sol.sns.model.entity.UserEntity;
+import com.sol.sns.repository.UserCacheRepository;
 import com.sol.sns.repository.UserEntityRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
-    @Autowired
+    @InjectMocks
     private UserService userService;
 
-    @MockBean
+    @Mock
     private UserEntityRepository userEntityRepository;
 
-    @MockBean
+    @Mock
+    private UserCacheRepository userCacheRepository;
+
+    @Mock
     private BCryptPasswordEncoder encoder;
+
+    @BeforeEach
+    void setUp() {
+        ReflectionTestUtils.setField(userService, "secretKey", "sol_fc_sns.sns-application-2022.secret_key_test_mode");
+        ReflectionTestUtils.setField(userService, "expiredTimeMs", 2592000000L);
+    }
 
     @Test
     void 회원가입이_정상적으로_동작하는_경우() {
@@ -51,9 +64,6 @@ class UserServiceTest {
 
         // mocking
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.of(fixture));
-        when(encoder.encode(password)).thenReturn("encrypt_password");
-        when(userEntityRepository.save(any())).thenReturn(Optional.of(fixture));
-
 
         SnsApplicationException e = Assertions.assertThrows(SnsApplicationException.class, () -> userService.join(userName, password));
         Assertions.assertEquals(ErrorCode.DUPLICATED_USER_NAME, e.getErrorCode());

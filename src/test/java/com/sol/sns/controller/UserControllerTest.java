@@ -1,11 +1,11 @@
 package com.sol.sns.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sol.sns.controller.request.UserJoinRequest;
 import com.sol.sns.controller.request.UserLoginRequest;
 import com.sol.sns.exception.ErrorCode;
 import com.sol.sns.exception.SnsApplicationException;
+import com.sol.sns.fixture.UserEntityFixture;
 import com.sol.sns.model.User;
 import com.sol.sns.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -15,9 +15,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Collection;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -28,6 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
+@TestPropertySource(locations = "classpath:test.properties")
 @AutoConfigureMockMvc
 public class UserControllerTest {
 
@@ -115,6 +125,12 @@ public class UserControllerTest {
     @Test
     @WithMockUser
     void 알람기능() throws Exception {
+        User user = User.fromEntity(UserEntityFixture.get("userName", "password", 1));
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                user, null, user.getAuthorities()
+        );
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
         when(userService.alarmList(any(), any())).thenReturn(Page.empty());
         mockMvc.perform(get("/api/v1/users/alarm")
                         .contentType(MediaType.APPLICATION_JSON))

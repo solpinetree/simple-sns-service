@@ -51,7 +51,7 @@ public class PostService {
         postEntity.setTitle(title);
         postEntity.setBody(body);
 
-        return Post.fromEntity(postEntityRepository.saveAndFlush(postEntity));
+        return Post.fromEntity(postEntityRepository.update(postEntity));
     }
 
     @Transactional
@@ -129,5 +129,4 @@ public class PostService {
         return userEntityRepository.findByUserName(userName).orElseThrow(()->
                 new SnsApplicationException(ErrorCode.USER_NOT_FOUND, String.format("%s not founded", userName)));
     }
-
 }

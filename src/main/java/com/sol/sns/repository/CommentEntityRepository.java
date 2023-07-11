@@ -2,22 +2,54 @@ package com.sol.sns.repository;
 
 import com.sol.sns.model.entity.CommentEntity;
 import com.sol.sns.model.entity.PostEntity;
+import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+@RequiredArgsConstructor
 @Repository
-public interface CommentEntityRepository extends JpaRepository<CommentEntity, Integer> {
+public class CommentEntityRepository {
 
-    Page<CommentEntity> findAllByPost(PostEntity post, Pageable pageable);
+    private final JdbcTemplate jdbcTemplate;
 
-    @Transactional
-    @Modifying
-    @Query("UPDATE CommentEntity entity SET deleted_at = NOW() where entity.post = :post")
-    void deleteAllByPost(@Param("post") PostEntity postEntity);
+    public Page<CommentEntity> findAllByPost(PostEntity post, Pageable pageable) {
+        int pageNumber = pageable.getPageNumber();
+        int pageSize = pageable.getPageSize();
+        int offset = pageNumber * pageSize;
+
+        List<CommentEntity> commentEntities;
+
+        try {
+            commentEntities = jdbcTemplate.query(
+                    "select * from \"comment\" where post_id = ? and deleted_at is null limit ? offset ?",
+                    new BeanPropertyRowMapper<>(CommentEntity.class),
+                    post.getId(), pageSize, offset);
+        } catch (EmptyResultDataAccessException e) {
+            commentEntities = List.of();
+        }
+
+        return new PageImpl<>(commentEntities, pageable, commentEntities.size());
+    }
+
+    public CommentEntity save(CommentEntity entity) {
+        int commentId = jdbcTemplate.update(
+                "insert into \"comment\" (user_id, post_id, comment) values (?, ?, ?)",
+                entity.getUser().getId(), entity.getPost().getId(), entity.getComment());
+
+        entity.setId(commentId);
+        return entity;
+    }
+
+    public void deleteAllByPost(PostEntity post) {
+        jdbcTemplate.update(
+                "update \"comment\" set deleted_at = now() where post_id = ?",
+                post.getId());
+    }
 }

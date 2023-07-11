@@ -6,32 +6,38 @@ import com.sol.sns.fixture.PostEntityFixture;
 import com.sol.sns.fixture.UserEntityFixture;
 import com.sol.sns.model.entity.PostEntity;
 import com.sol.sns.model.entity.UserEntity;
+import com.sol.sns.repository.CommentEntityRepository;
+import com.sol.sns.repository.LikeEntityRepository;
 import com.sol.sns.repository.PostEntityRepository;
 import com.sol.sns.repository.UserEntityRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class PostServiceTest {
 
-    @Autowired
+    @InjectMocks
     private PostService postService;
 
-    @MockBean
+    @Mock
     private PostEntityRepository postEntityRepository;
-    @MockBean
+    @Mock
     private UserEntityRepository userEntityRepository;
+    @Mock
+    private LikeEntityRepository likeEntityRepository;
+    @Mock
+    private CommentEntityRepository commentEntityRepository;
 
     @Test
     void 포스트작성이_성공한경우() {
@@ -55,7 +61,6 @@ public class PostServiceTest {
 
         // mocking
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.empty());
-        when(postEntityRepository.save(any())).thenReturn(mock(PostEntity.class));
 
         SnsApplicationException e = Assertions.assertThrows(SnsApplicationException.class, () -> postService.create(title, body, userName));
         Assertions.assertEquals(ErrorCode.USER_NOT_FOUND, e.getErrorCode());
@@ -73,7 +78,7 @@ public class PostServiceTest {
 
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.of(userEntity));
         when(postEntityRepository.findById(postId)).thenReturn(Optional.of(postEntity));
-        when(postEntityRepository.saveAndFlush(any())).thenReturn(postEntity);
+        when(postEntityRepository.update(any())).thenReturn(postEntity);
 
         Assertions.assertDoesNotThrow(() -> postService.modify(title, body, userName, postId));
 
@@ -89,7 +94,6 @@ public class PostServiceTest {
         PostEntity postEntity = PostEntityFixture.get(userName, postId,1 );
         UserEntity userEntity = postEntity.getUser();
 
-        when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.of(userEntity));
         when(postEntityRepository.findById(postId)).thenReturn(Optional.empty());
 
         SnsApplicationException e = Assertions.assertThrows(SnsApplicationException.class, ()->postService.modify(title, body, userName, postId));
@@ -125,6 +129,9 @@ public class PostServiceTest {
 
         when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.of(userEntity));
         when(postEntityRepository.findById(postId)).thenReturn(Optional.of(postEntity));
+        doNothing().when(likeEntityRepository).deleteAllByPost(postEntity);
+        doNothing().when(commentEntityRepository).deleteAllByPost(postEntity);
+        doNothing().when(postEntityRepository).delete(postEntity);
 
         Assertions.assertDoesNotThrow(() -> postService.delete(userName, postId));
 
@@ -138,7 +145,6 @@ public class PostServiceTest {
         PostEntity postEntity = PostEntityFixture.get(userName, postId,1 );
         UserEntity userEntity = postEntity.getUser();
 
-        when(userEntityRepository.findByUserName(userName)).thenReturn(Optional.of(userEntity));
         when(postEntityRepository.findById(postId)).thenReturn(Optional.empty());
 
         SnsApplicationException e = Assertions.assertThrows(SnsApplicationException.class, ()->postService.delete(userName, postId));
