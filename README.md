@@ -104,7 +104,7 @@
 &nbsp;
 
 ## Security Diagram
-![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/08b152e6-ddcb-459f-9ac8-947ed3a48a34)
+![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/63dba5cc-bcf1-496e-89e7-db94f3025b3b)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
