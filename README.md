@@ -26,8 +26,11 @@
     <li>
       <a href="#architecture">Architecture</a>
     </li>
-      <li>
+    <li>
       <a href="#backend-layers">BackEnd Layers</a>
+    </li>
+    <li>
+      <a href="#erd">ERD</a>
     </li>
     <li>
       <a href="#class-diagram">Class Diagram</a>
@@ -105,6 +108,16 @@
 
 ## Security Diagram
 ![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/63dba5cc-bcf1-496e-89e7-db94f3025b3b)
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+&nbsp;
+&nbsp;
+
+## ERD
+
+![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/9c3538af-f3c5-4678-aadc-7d6a8ca6b4ad)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
