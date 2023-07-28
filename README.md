@@ -43,7 +43,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-작성 중.. 
+댓글, 좋아요, 알림기능을 포함하는 간단한 text-based sns 어플리케이션 입니다. Caching, server side event, 비동기를 이용해서 데이터를 처리하는 등 대규모 트래픽을 고려했습니다. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
