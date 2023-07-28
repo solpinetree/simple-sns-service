@@ -90,7 +90,7 @@
 &nbsp;
 
 ## Architecture
-<img width="719" alt="image" src="https://github.com/solpinetree/simple-sns-service/assets/83967710/61a0c70f-f87f-48fa-9738-9ee7249669b4">
+<img width="50%" alt="image" src="https://github.com/solpinetree/simple-sns-service/assets/83967710/61a0c70f-f87f-48fa-9738-9ee7249669b4">
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
