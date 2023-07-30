@@ -1,4 +1,4 @@
-package com.sol.sns.consumer;
+package com.sol.sns.configuration.kafka.consumer;
 
 import com.sol.sns.model.event.AlarmEvent;
 import com.sol.sns.service.AlarmService;
@@ -15,7 +15,7 @@ public class AlarmConsumer {
 
     private final AlarmService alarmService;
 
-    @KafkaListener(topics = "${spring.kafka.topic.notification}")
+    @KafkaListener(topics = "${spring.kafka.topic.alarm}")
     public void consumeAlarm(AlarmEvent event, Acknowledgment ack) {
         log.info("Consume the event {}", event);
         alarmService.send(event.getAlarmType(), event.getArgs() , event.getReceiveUserId());

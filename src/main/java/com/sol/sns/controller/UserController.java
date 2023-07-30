@@ -12,6 +12,7 @@ import com.sol.sns.model.User;
 import com.sol.sns.service.AlarmService;
 import com.sol.sns.service.UserService;
 import com.sol.sns.util.ClassUtils;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+@Tag(name = "Users API")
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor

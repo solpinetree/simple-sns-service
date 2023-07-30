@@ -8,12 +8,15 @@ import com.sol.sns.controller.response.PostResponse;
 import com.sol.sns.controller.response.Response;
 import com.sol.sns.model.Post;
 import com.sol.sns.service.PostService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "Posts API")
 @RestController
 @RequestMapping("/api/v1/posts")
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class PostController {
 
     private final PostService postService;
 
+    @Operation(summary = "게시물 생성")
     @PostMapping
     public Response<Void> create(@RequestBody PostCreateRequest request, Authentication authentication) {
         postService.create(request.getTitle(), request.getBody(), authentication.getName());
@@ -70,7 +74,4 @@ public class PostController {
     public Response<Page<CommentResponse>> comment(@PathVariable Integer postId, Pageable pageable, Authentication authentication) {
         return Response.success(postService.getComments(postId, pageable).map(CommentResponse::fromComment));
     }
-
-
-
 }

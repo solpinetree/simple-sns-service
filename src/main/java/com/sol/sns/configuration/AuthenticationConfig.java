@@ -25,8 +25,10 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().regexMatchers("^(?!/api/).*")
-                .antMatchers(HttpMethod.POST, "/api/*/users/join", "/api/*/users/login");
+        web.ignoring().regexMatchers("^(?!/api/).*");
+        web.ignoring().antMatchers(HttpMethod.POST, "/api/*/users/join", "/api/*/users/login");
+
+        web.ignoring().antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**");
     }
 
     @Override
@@ -34,6 +36,7 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/**").authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -42,5 +45,6 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
         ;
+
     }
 }

@@ -1,4 +1,4 @@
-package com.sol.sns.producer;
+package com.sol.sns.configuration.kafka.producer;
 
 import com.sol.sns.model.event.AlarmEvent;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ public class AlarmProducer {
 
     private final KafkaTemplate<Integer, AlarmEvent> kafkaTemplate;
 
-    @Value("${spring.kafka.topic.notification}")
+    @Value("${spring.kafka.topic.alarm}")
     private String topic;
 
     public void send(AlarmEvent event) {

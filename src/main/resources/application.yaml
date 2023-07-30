@@ -1,5 +1,5 @@
 spring.datasource:
-  hikari.maximum-pool-size: 4
+  hikari.maximum-pool-size: 10
   url: ${DB_URL}
   username: ${DB_USERNAME}
   password: ${DB_PW}
@@ -14,23 +14,18 @@ spring.redis.url: ${REDIS_URL}
 
 spring:
   kafka:
-    properties:
-      security.protocol: SASL_SSL
-      sasl.mechanism: SCRAM-SHA-256
-      sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username="${KAFKA_USERNAME}" password="${KAFKA_PW}";
     consumer:
       properties.spring.json.trusted.packages: "*"
-      bootstrap-servers: moped.srvs.cloudkafka.com:9094
-      group-id: kqdravip-notification
+      bootstrap-servers: localhost:9092
+      group-id: sns-alarm
       auto-offset-reset: latest
       key-deserializer: org.apache.kafka.common.serialization.IntegerDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
     listener:
-      ack-mode: MANUAL
+      ack-mode: MANUAL # 수동으로 ack를 날림
     producer:
-      bootstrap-servers: moped.srvs.cloudkafka.com:9094
+      bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      properties.enable.idempotence: false
     topic:
-      notification: kqdravip-notification
+      alarm: alarm

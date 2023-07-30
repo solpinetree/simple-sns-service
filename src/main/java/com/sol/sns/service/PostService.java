@@ -11,7 +11,7 @@ import com.sol.sns.model.entity.LikeEntity;
 import com.sol.sns.model.entity.PostEntity;
 import com.sol.sns.model.entity.UserEntity;
 import com.sol.sns.model.event.AlarmEvent;
-import com.sol.sns.producer.AlarmProducer;
+import com.sol.sns.configuration.kafka.producer.AlarmProducer;
 import com.sol.sns.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

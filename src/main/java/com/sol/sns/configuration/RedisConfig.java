@@ -16,7 +16,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 @EnableRedisRepositories
 @RequiredArgsConstructor
-public class RedisConfiguration {
+public class RedisConfig {
 
     private final RedisProperties redisProperties;
 
