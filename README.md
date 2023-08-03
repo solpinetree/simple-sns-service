@@ -43,18 +43,13 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-댓글, 좋아요, 알림기능을 포함하는 간단한 text-based sns 어플리케이션 입니다. Caching, server side event, 비동기를 이용해서 데이터를 처리하는 등 대규모 트래픽을 고려했습니다. 
+댓글, 좋아요, 알림기능을 포함하는 간단한 text-based sns 어플리케이션 입니다. Caching, server side event, 비동기를 이용해서 데이터를 처리하는 등 대규모 트래픽을 고려했습니다.  
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 ### Built With
-
-&nbsp;
-&nbsp;
-
-
 * [![Java][Java]][Java-url]
 * [![Junit5][Junit5]][Junit5-url]
 * [![SpringBoot][SpringBoot]][SpringBoot-url]
@@ -64,6 +59,8 @@
 * [![Heroku][Heroku]][Heroku-url]
 * [![Redis][Redis]][Redis-url]
 * [![Apache Kafka][Kafka]][Kafka-url]
+
+Junit5을 이용한 TDD 방법론으로 서비스를 개발했습니다. `Spring jdbc` 를 이용해서 실제 postgres native query를 이용해서 DB에 쿼리를 날리고 결과값을 받았습니다. 캐시를 위해 Redis를 사용했고 서버 안정화와 비동기 처리를 위해 Kafka를 사용했습니다. Spring boot 버전은 2.6.7 버전을 사용했습니다. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
