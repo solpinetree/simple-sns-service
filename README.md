@@ -60,7 +60,7 @@
 * [![Redis][Redis]][Redis-url]
 * [![Apache Kafka][Kafka]][Kafka-url]
 
-Junit5을 이용한 TDD 방법론으로 서비스를 개발했습니다. `Spring jdbc` 를 이용해서 실제 postgres native query를 이용해서 DB에 쿼리를 날리고 결과값을 받았습니다. 캐시를 위해 Redis를 사용했고 서버 안정화와 비동기 처리를 위해 Kafka를 사용했습니다. Spring boot 버전은 2.6.7 버전을 사용했습니다. 
+Junit5을 이용한 TDD 방법론으로 서비스를 개발했습니다. `Spring jdbc` 를 이용해서 Postgres DB와 소통했습니다. 유저 정보 캐시를 위해 Redis를 사용했고 서버 안정화와 비동기 처리를 위해 Kafka를 사용했습니다. Spring boot 버전은 2.6.7 버전을 사용했습니다. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
