@@ -96,7 +96,9 @@ Junit5을 이용한 TDD 방법론으로 서비스를 개발했습니다. `Spring
 
 ## BackEnd Layers
 ![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/c158e364-8a0b-4bda-b79c-218f4378224e)
-
+이 프로젝트는 레이어드 아키텍처 패턴을 따릅니다.
+레이어드 아키텍처의 Presentation layer의 역할은 controller 가,
+Business layer의 역할은 service, Persistence layer의 역할은 repository가 수행하도록 구성했습니다.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
