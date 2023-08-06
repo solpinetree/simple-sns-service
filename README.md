@@ -116,7 +116,8 @@ Business layer의 역할은 service, Persistence layer의 역할은 repository�
 
 ## ERD
 
-![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/9c3538af-f3c5-4678-aadc-7d6a8ca6b4ad)
+
+![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/045f940f-9cd8-4550-aaec-4718702e283f)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
