@@ -87,7 +87,8 @@ Junit5을 이용한 TDD 방법론으로 서비스를 개발했습니다. `Spring
 &nbsp;
 
 ## Architecture
-<img width="70%" alt="image" src="https://github.com/solpinetree/simple-sns-service/assets/83967710/61a0c70f-f87f-48fa-9738-9ee7249669b4">
+![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/ce131601-8f9b-4026-83ce-0f591cb2640d)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -107,7 +108,9 @@ Business layer의 역할은 service, Persistence layer의 역할은 repository�
 
 ## Security Diagram
 ![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/63dba5cc-bcf1-496e-89e7-db94f3025b3b)
+Bearer 헤더로 jwt 를 받아서 인증을 합니다. SecurityFilter 에 따로 정의한 JwtTokenFilter를 추가해서 JwtTokenFilter로 토큰을 확인합니다. token에는 유저의 username이 저장되어있습니다. token에서 추출한 username으로 redis나 db(redis에 없다면)에서 userDto를 가져옵니다. 가져온 userDto를 `UsernamePasswordAuthenticationToken`의 principal로 저장해준 뒤 securityContext의 authentication을 방금 정의한 `UsernamePasswordAuthenticationToken`으로 설정해서 사용하도록 했습니다.
 
+Redis에는 (key: username, value: userDto)가 저장되어 있습니다. 만료기간은 3일로 설정했습니다.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
