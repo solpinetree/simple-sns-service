@@ -60,7 +60,7 @@
 * [![Redis][Redis]][Redis-url]
 * [![Apache Kafka][Kafka]][Kafka-url]
 
-Junit5을 이용한 TDD 방법론으로 서비스를 개발했습니다. `Spring jdbc` 를 이용해서 Postgres DB와 소통했습니다. 유저 정보 캐시를 위해 Redis를 사용했고 서버 안정화와 비동기 처리를 위해 Kafka를 사용했습니다. Spring boot 버전은 2.6.7 버전을 사용했습니다. 
+Java11, Spring boot 2.6.7 버전을 사용했습니다. Junit5을 이용한 TDD 방법론으로 서비스를 개발했습니다.  
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -87,7 +87,7 @@ Junit5을 이용한 TDD 방법론으로 서비스를 개발했습니다. `Spring
 &nbsp;
 
 ## Architecture
-![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/ce131601-8f9b-4026-83ce-0f591cb2640d)
+<img width="1329" alt="image" src="https://github.com/solpinetree/simple-sns-service/assets/83967710/2b14c817-2703-4830-96ac-b38b389d637f">
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
