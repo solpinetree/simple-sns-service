@@ -14,8 +14,6 @@
 <br/>
 
 <!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
@@ -35,9 +33,18 @@
     <li>
       <a href="#class-diagram">Class Diagram</a>
     </li>
+     <li>
+      <a href="#api-문서">API 문서</a>
+       <ul>
+        <li><a href="#swagger">Swagger</a></li>
+      </ul>
+    </li>
   </ol>
-</details>
 
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
 
 
 <!-- ABOUT THE PROJECT -->
@@ -60,7 +67,7 @@
 * [![Redis][Redis]][Redis-url]
 * [![Apache Kafka][Kafka]][Kafka-url]
 
-Java11, Spring boot 2.6.7 버전을 사용했습니다. Junit5을 이용한 TDD 방법론으로 서비스를 개발했습니다.  
+Java11, Spring boot 2.6.7 버전을 사용했습니다.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -85,6 +92,8 @@ Java11, Spring boot 2.6.7 버전을 사용했습니다. Junit5을 이용한 TDD 
 
 &nbsp;
 &nbsp;
+&nbsp;
+&nbsp;
 
 ## Architecture
 <img width="1329" alt="image" src="https://github.com/solpinetree/simple-sns-service/assets/83967710/2b14c817-2703-4830-96ac-b38b389d637f">
@@ -94,15 +103,19 @@ Java11, Spring boot 2.6.7 버전을 사용했습니다. Junit5을 이용한 TDD 
 
 &nbsp;
 &nbsp;
+&nbsp;
+&nbsp;
 
 ## BackEnd Layers
 ![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/c158e364-8a0b-4bda-b79c-218f4378224e)
-이 프로젝트는 레이어드 아키텍처 패턴을 따릅니다.
-레이어드 아키텍처의 Presentation layer의 역할은 controller 가,
-Business layer의 역할은 service, Persistence layer의 역할은 repository가 수행하도록 구성했습니다.
+이 프로젝트는 레이어드 아키텍처 패턴을 따릅니다. <br>
+레이어드 아키텍처의 Presentation layer의 역할은 controller 가 <br>
+Business layer의 역할은 service, Persistence layer의 역할은 repository가 수행합니다. <br>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+&nbsp;
+&nbsp;
 &nbsp;
 &nbsp;
 
@@ -116,6 +129,8 @@ Redis에는 (key: username, value: userDto)가 저장되어 있습니다. 만료
 
 &nbsp;
 &nbsp;
+&nbsp;
+&nbsp;
 
 ## ERD
 
@@ -127,9 +142,21 @@ Redis에는 (key: username, value: userDto)가 저장되어 있습니다. 만료
 
 &nbsp;
 &nbsp;
+&nbsp;
+&nbsp;
 
 ## Class Diagram
 ![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/7c8aaf16-3544-4b4c-b800-e97732ce0c93)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## API 문서
+### Swagger
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
 
