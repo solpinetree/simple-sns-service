@@ -121,9 +121,22 @@ Business layer의 역할은 service, Persistence layer의 역할은 repository�
 
 ## Security Diagram
 ![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/63dba5cc-bcf1-496e-89e7-db94f3025b3b)
-Bearer 헤더로 jwt 를 받아서 인증을 합니다. SecurityFilter 에 따로 정의한 JwtTokenFilter를 추가해서 JwtTokenFilter로 토큰을 확인합니다. token에는 유저의 username이 저장되어있습니다. token에서 추출한 username으로 redis나 db(redis에 없다면)에서 userDto를 가져옵니다. 가져온 userDto를 `UsernamePasswordAuthenticationToken`의 principal로 저장해준 뒤 securityContext의 authentication을 방금 정의한 `UsernamePasswordAuthenticationToken`으로 설정해서 사용하도록 했습니다.
 
-Redis에는 (key: username, value: userDto)가 저장되어 있습니다. 만료기간은 3일로 설정했습니다.
+- **JWT와 Bearer 헤더를 통한 인증**
+
+   Bearer 헤더를 통해 클라이언트가 JWT를 서버로 전달하고, 서버는 해당 토큰의 유효성을 검사하여 사용자를 인증합니다. 
+
+- **JwtTokenFilter를 통한 토큰 확인**
+
+  JwtTokenFilter는 토큰의 유효성을 검사하고 사용자 정보를 추출하는 역할을 합니다. 이렇게 분리된 필터를 통해 코드를 모듈화하고 중복을 방지할 수 있었습니다. 보안 로직을 한 곳에 모여있기에 관리 및 업데이트가 용이하기도 했습니다.
+
+- **Redis를 활용한 유저 정보 캐싱**
+
+  Redis는 빠른 읽기와 쓰기 성능을 제공하는 인메모리 데이터 스토어로서, 토큰에서 추출한 유저 정보를 캐싱하기에 적합하다고 판단했습니다. 유저 정보를 Redis에 저장함으로써 데이터베이스에 불필요한 조회를 줄이고 응답 속도를 향상시킬 수 있었습니다. 
+
+- **Redis의 만료 정책**
+
+  Redis에 저장된 유저 정보는 설정된 3일의 만료 기간을 가지며, 이를 통해 불필요한 데이터의 축적을 방지하고 메모리를 효율적으로 관리할 수 있었습니다. 만료된 데이터는 자동으로 삭제되어 데이터 일관성과 보안을 유지할 수 있었습니다.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
