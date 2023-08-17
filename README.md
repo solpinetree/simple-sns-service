@@ -150,6 +150,10 @@ Business layer의 역할은 service, Persistence layer의 역할은 repository�
 
 ![image](https://github.com/solpinetree/simple-sns-service/assets/83967710/045f940f-9cd8-4550-aaec-4718702e283f)
 
+### PostgreSQL 선택 이유
+프로젝트에서는 회원 정보와 게시물 정보를 저장하기 위한 데이터베이스가 필요합니다. 특히 사용자(User)가 작성한 게시물(Post)과의 관계가 명확하며, 사용자가 작성한 게시물을 검색하는 등의 작업도 필요합니다. 이러한 요구 사항을 충족하기 위해서 관계형 데이터베이스(RDB)를 선택하는 것이 적절하다고 판단했습니다. <br>
+
+프로젝트가 Heroku에서 배포될 예정이었고, 프로젝트 진행 당시에 Heroku는 무료로 PostgreSQL을 제공했으므로 또 다른 대표적인 RDB인 MySQL 말고 PostgreSQL을 선택하게 되었습니다.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
