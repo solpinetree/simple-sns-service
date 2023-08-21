@@ -24,10 +24,9 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
     private String key;
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().regexMatchers("^(?!/api/).*");
+    public void configure(WebSecurity web) {
         web.ignoring().antMatchers(HttpMethod.POST, "/api/*/users/join", "/api/*/users/login");
-
+        web.ignoring().antMatchers("**.json", "/", "**.js", "**.html", "**.jpg", "**.png", "**/static/**");
         web.ignoring().antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-resources/**");
     }
 
@@ -36,7 +35,6 @@ public class AuthenticationConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/**").authenticated()
-                .anyRequest().permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
