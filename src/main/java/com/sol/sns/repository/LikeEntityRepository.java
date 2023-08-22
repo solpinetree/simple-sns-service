@@ -4,38 +4,42 @@ import com.sol.sns.model.entity.LikeEntity;
 import com.sol.sns.model.entity.PostEntity;
 import com.sol.sns.model.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Repository
 public class LikeEntityRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public Optional<LikeEntity> findByUserAndPost(UserEntity user, PostEntity post){
-        LikeEntity entity;
+    public boolean findByUserAndPost(UserEntity user, PostEntity post){
+        boolean result;
 
         try {
-            entity = jdbcTemplate.queryForObject(
-                    "select * from \"like\" where user_id =  ? and post_id = ? and deleted_at is null",
-                    LikeEntity.class,
+            result = jdbcTemplate.queryForObject(
+                    "select 1 from \"like\" where user_id =  ? and post_id = ? and deleted_at is null",
+                    Boolean.class,
                     user.getId(), post.getId());
         } catch (EmptyResultDataAccessException e) {
-            entity = null;
+            result = false;
         }
 
-        return Optional.ofNullable(entity);
+        return result;
     }
 
-    public int countByPost(@Param("post") PostEntity post) {
-        int cnt = jdbcTemplate.queryForObject("select count(*) from \"post\" where id = ? and deleted_at is null",
+    public int countByPost(PostEntity post) {
+        int cnt = jdbcTemplate.queryForObject("select count(*) from \"like\" where post_id = ? and deleted_at is null",
                 Integer.class,
                 post.getId());
+
+        log.info("{}", cnt);
         return cnt;
     }
 

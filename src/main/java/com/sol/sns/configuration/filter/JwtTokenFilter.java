@@ -56,6 +56,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             }
 
             String userName = JwtTokenUtils.getUserName(token, key);
+
             User user = userService.loadUserByUserName(userName);
 
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
@@ -75,7 +76,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        List<String> excludedUrls = List.of("/login", "/join", "/api-docs", "/swagger", "/");
+        List<String> excludedUrls = List.of("/login", "/join", "/api-docs", "/swagger");
         return excludedUrls.stream().anyMatch(request.getRequestURI()::contains);
     }
 }

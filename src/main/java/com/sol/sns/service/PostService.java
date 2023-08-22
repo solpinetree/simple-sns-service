@@ -87,9 +87,9 @@ public class PostService {
         UserEntity userEntity = getUserEntityOrException(userName);
 
         // check liked -> throw
-        likeEntityRepository.findByUserAndPost(userEntity, postEntity).ifPresent(it -> {
+        if(likeEntityRepository.findByUserAndPost(userEntity, postEntity)){
             throw new SnsApplicationException(ErrorCode.ALREADY_LIKED, String.format("userName %s already like post %d", userName, postId));
-        });
+        }
 
         // like save
         likeEntityRepository.save(LikeEntity.of(userEntity, postEntity));

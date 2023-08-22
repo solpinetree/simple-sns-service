@@ -6,6 +6,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -20,7 +21,11 @@ public class UserEntityRepository {
         try {
             entity = jdbcTemplate.queryForObject(
                     "select * from \"user\" where id = ?",
-                    UserEntity.class,
+                    (ResultSet rs, int rowNum) -> {
+                        UserEntity user = UserEntity.of(rs.getString("user_name"), rs.getString("password"));
+                        user.setId(rs.getInt("id"));
+                        return user;
+                    },
                     userId);
         } catch (EmptyResultDataAccessException e) {
             entity = null;
@@ -35,7 +40,11 @@ public class UserEntityRepository {
         try {
             entity = jdbcTemplate.queryForObject(
                     "select * from \"user\" where user_name = ?",
-                    UserEntity.class,
+                    (ResultSet rs, int rowNum) -> {
+                        UserEntity user = UserEntity.of(rs.getString("user_name"), rs.getString("password"));
+                        user.setId(rs.getInt("id"));
+                        return user;
+                    },
                     userName);
         } catch (EmptyResultDataAccessException e) {
             entity = null;
@@ -46,8 +55,8 @@ public class UserEntityRepository {
 
     public UserEntity save(UserEntity entity) {
         int userId = jdbcTemplate.update(
-                "insert into \"user\" (user_name, password, registered_at, updated_at) values (?, ?, now(), now())",
-                entity.getUserName(), entity.getPassword());
+                "insert into \"user\" (user_name, password, role, registered_at, updated_at) values (?, ?, ?, now(), now())",
+                entity.getUserName(), entity.getPassword(), entity.getRole().name());
 
         entity.setId(userId);
         return entity;
