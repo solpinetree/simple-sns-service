@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +45,8 @@ public class PostController {
     }
 
     @GetMapping
-    public Response<Page<PostResponse>> list(Pageable pageable, Authentication authentication) {
+    public Response<Page<PostResponse>> list(
+            @PageableDefault(size = 5) Pageable pageable) {
         return Response.success(postService.list(pageable).map(PostResponse::fromPost));
     }
 

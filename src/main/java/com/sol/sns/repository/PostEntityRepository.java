@@ -1,6 +1,5 @@
 package com.sol.sns.repository;
 
-import com.sol.sns.model.Post;
 import com.sol.sns.model.entity.PostEntity;
 import com.sol.sns.model.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +7,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -60,7 +58,8 @@ public class PostEntityRepository {
             postEntities = jdbcTemplate.query(
                     "select p.*, u.user_name from \"post\" p " +
                             "left join \"user\" u on p.user_id = u.id " +
-                            "where p.deleted_at is null limit ? offset ?",
+                            "where p.deleted_at is null order by p.registered_at desc " +
+                            "limit ? offset ?",
                     rs -> {
                         List<PostEntity> result = new ArrayList<>();
                         while (rs.next()) {
@@ -84,7 +83,13 @@ public class PostEntityRepository {
             postEntities = List.of();
         }
 
-        return new PageImpl<>(postEntities, pageable, postEntities.size());
+        // 전체 엔티티 개수 조회
+        long total = jdbcTemplate.queryForObject(
+                "select count(*) from \"post\" where deleted_at is null",
+                Long.class
+        );
+
+        return new PageImpl<>(postEntities, pageable, total);
     }
 
     public Page<PostEntity> findAllByUser(UserEntity user, Pageable pageable){
@@ -117,7 +122,14 @@ public class PostEntityRepository {
             postEntities = List.of();
         }
 
-        return new PageImpl<>(postEntities, pageable, postEntities.size());
+        // 전체 엔티티 개수 조회
+        long total = jdbcTemplate.queryForObject(
+                "select count(*) from \"post\" where user_id = ? and deleted_at is null",
+                Long.class,
+                user.getId()
+        );
+
+        return new PageImpl<>(postEntities, pageable, total);
     }
 
     public PostEntity save(PostEntity entity) {

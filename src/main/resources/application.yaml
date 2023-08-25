@@ -5,6 +5,8 @@ spring.datasource:
   password: ${DB_PW}
   platform: postgres
 
+logging.level.org.springframework.jdbc.core.JdbcTemplate: DEBUG
+
 jwt:
   secret-key: sol_fc_sns.sns-application-2022.secret_key
   # 30d days

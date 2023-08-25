@@ -55,7 +55,14 @@ public class CommentEntityRepository {
             commentEntities = List.of();
         }
 
-        return new PageImpl<>(commentEntities, pageable, commentEntities.size());
+        // 전체 엔티티 개수 조회
+        long total = jdbcTemplate.queryForObject(
+                "select count(*) from \"comment\" where post_id = ? and deleted_at is null",
+                Long.class,
+                post.getId()
+        );
+
+        return new PageImpl<>(commentEntities, pageable, total);
     }
 
     public CommentEntity save(CommentEntity entity) {

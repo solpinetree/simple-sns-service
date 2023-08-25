@@ -50,7 +50,14 @@ public class AlarmEntityRepository {
             alarmEntities = List.of();
         }
 
-        return new PageImpl<>(alarmEntities, pageable, alarmEntities.size());
+        // 전체 엔티티 개수 조회
+        long total = jdbcTemplate.queryForObject(
+                "select count(*) from \"alarm\" where user_id = ? and deleted_at is null",
+                Long.class,
+                userId
+        );
+
+        return new PageImpl<>(alarmEntities, pageable, total);
     }
 
     public AlarmEntity save(AlarmEntity entity) {
@@ -67,8 +74,6 @@ public class AlarmEntityRepository {
                     ", \"targetId\": " + entity.getArgs().getTargetId() +
                     ", \"text\": \"" + entity.getArgs().getText() + "\"}";
         }
-
-
 
         int alarmId = jdbcTemplate.update(
                 "insert into \"alarm\" (user_id, alarm_type, args, registered_at, updated_at) values (?, ?, cast(? as json), now(), now())",
