@@ -39,13 +39,16 @@ public class CommentEntityRepository {
                             UserEntity user = new UserEntity();
                             user.setUserName(rs.getString("user_name"));
                             user.setId(rs.getInt("user_id"));
+
                             CommentEntity comment = new CommentEntity();
                             comment.setId(rs.getInt("id"));
                             comment.setComment(rs.getString("comment"));
-                            comment.setUser(user);
                             comment.setRegisteredAt(rs.getTimestamp("registered_at"));
                             comment.setUpdatedAt(rs.getTimestamp("updated_at"));
                             comment.setDeletedAt(rs.getTimestamp("deleted_at"));
+
+                            comment.setUser(user);
+                            comment.setPost(post);
                             result.add(comment);
                         }
                         return result;
