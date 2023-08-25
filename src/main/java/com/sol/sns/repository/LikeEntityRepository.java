@@ -9,10 +9,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
 import java.util.Optional;
 
-@Slf4j
 @RequiredArgsConstructor
 @Repository
 public class LikeEntityRepository {
@@ -39,7 +37,6 @@ public class LikeEntityRepository {
                 Integer.class,
                 post.getId());
 
-        log.info("{}", cnt);
         return cnt;
     }
 

@@ -21,11 +21,21 @@ public class AlarmResponse {
 
 
     public static AlarmResponse fromAlarm(Alarm alarm) {
+        String text = "";
+        String fromUserName = alarm.getArgs().getFromUserName();
+
+        if (alarm.getAlarmType().equals(AlarmType.NEW_LIKE_ON_POST)) {
+            text = fromUserName + "님이 회원님의 게시물을 좋아합니다 👍";
+        } else {
+            text = fromUserName + "님이 회원님의 게시물에 댓글을 달았습니다 ✋\n" +
+                    alarm.getArgs().getText();
+        }
+
         return new AlarmResponse(
                 alarm.getId(),
                 alarm.getAlarmType(),
                 alarm.getArgs(),
-                alarm.getAlarmType().getAlarmText(),
+                text,
                 alarm.getRegisteredAt(),
                 alarm.getUpdatedAt(),
                 alarm.getDeletedAt()

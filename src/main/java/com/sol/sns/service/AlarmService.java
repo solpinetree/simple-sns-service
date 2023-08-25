@@ -28,8 +28,7 @@ public class AlarmService {
     private final UserEntityRepository userEntityRepository;
 
     public void send(AlarmType type, AlarmArgs arg, Integer receiverUserId) {
-        UserEntity user = userEntityRepository.findById(receiverUserId).orElseThrow(() -> new SnsApplicationException(ErrorCode.USER_NOT_FOUND));
-        AlarmEntity alarmEntity = alarmEntityRepository.save(AlarmEntity.of(user, type,  arg));
+        AlarmEntity alarmEntity = alarmEntityRepository.save(AlarmEntity.of(receiverUserId, type,  arg));
 
         emitterRepository.get(receiverUserId).ifPresentOrElse(sseEmitter -> {
             try {

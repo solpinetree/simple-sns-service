@@ -13,7 +13,7 @@ public class AlarmEntity {
     private Integer id;
 
     // 알람을 받은 사람
-    private UserEntity user;
+    private Integer userId;
 
     private AlarmType alarmType;
 
@@ -25,9 +25,9 @@ public class AlarmEntity {
 
     private Timestamp deletedAt;
 
-    public static AlarmEntity of(UserEntity userEntity, AlarmType alarmType, AlarmArgs args) {
+    public static AlarmEntity of(Integer userId, AlarmType alarmType, AlarmArgs args) {
         AlarmEntity entity = new AlarmEntity();
-        entity.setUser(userEntity);
+        entity.setUserId(userId);
         entity.setAlarmType(alarmType);
         entity.setArgs(args);
         return entity;
