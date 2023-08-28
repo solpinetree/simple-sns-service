@@ -44,7 +44,7 @@ public class PostService {
         UserEntity userEntity = getUserEntityOrException(userName);
 
         //post permission
-        if (postEntity.getUser() != userEntity) {
+        if (postEntity.getUser().getId() != userEntity.getId()) {
             throw new SnsApplicationException(ErrorCode.INVALID_PERMISSION, String.format("%s has no permission with %s", userName, postId));
         }
 
@@ -61,7 +61,7 @@ public class PostService {
         UserEntity userEntity = getUserEntityOrException(userName);
 
         //post permission
-        if (postEntity.getUser() != userEntity) {
+        if (postEntity.getUser().getId() != userEntity.getId()) {
             throw new SnsApplicationException(ErrorCode.INVALID_PERMISSION, String.format("%s has no permission with %s", userName, postId));
         }
 

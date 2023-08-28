@@ -151,7 +151,7 @@ public class PostEntityRepository {
 
     public void delete(PostEntity entity) {
         jdbcTemplate.update(
-                "update \"post\" set deleted_at = now() where post_id = ?"
+                "update \"post\" set deleted_at = now() where id = ?"
                 , entity.getId()
         );
     }
