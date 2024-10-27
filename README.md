@@ -33,12 +33,6 @@
     <li>
       <a href="#class-diagram">Class Diagram</a>
     </li>
-     <li>
-      <a href="#api-문서">API 문서</a>
-       <ul>
-        <li><a href="#swagger">Swagger</a></li>
-      </ul>
-    </li>
   </ol>
 
 &nbsp;
@@ -167,10 +161,6 @@ Business layer의 역할은 service, Persistence layer의 역할은 repository�
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## API 문서
-### Swagger
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 &nbsp;
 &nbsp;
